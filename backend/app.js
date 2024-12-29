@@ -17,12 +17,12 @@ app.use(
 );
 
 app.use(express.static(path.join(__dirname, "dist")));
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "dist", "index.html"));
-});
 
 app.use("/api/v1", todoRoute);
 app.use("/api/v1/user", userRoute);
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "dist", "index.html"));
+});
 
 app.use(errorMiddleware);
 
