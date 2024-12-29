@@ -5,6 +5,7 @@ const todoRoute = require("./routes/todoRoutes");
 const userRoute = require("./routes/userRoutes");
 const errorMiddleware = require("./middleware/error");
 const cookieParser = require("cookie-parser");
+const path = require("path");
 
 app.use(express.json());
 app.use(cookieParser());
@@ -14,6 +15,11 @@ app.use(
     credentials: true,
   })
 );
+
+app.use(express.static(path.join(__dirname, "dist")));
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "dist", "index.html"));
+});
 
 app.use("/api/v1", todoRoute);
 app.use("/api/v1/user", userRoute);
