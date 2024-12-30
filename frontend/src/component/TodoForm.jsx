@@ -1,20 +1,26 @@
 import React from "react";
 import { IoMdAdd } from "react-icons/io";
+import { Container } from "@mui/material";
+import IconButton from "@mui/material/IconButton";
+import Input from "@mui/material/Input";
+import AddTaskIcon from "@mui/icons-material/AddTask";
 
 export const TodoForm = ({ todo, setTodo, handleSubmit }) => {
   return (
-    <div key={"qww"} className="heading">
+    <Container key={"qww"} className="heading">
       <form onSubmit={handleSubmit}>
-        <input
+        <Input
+          className="input"
+          disableUnderline
+          fullWidth
           type="text"
-          placeholder="Enter Your Todo"
           value={todo}
           onChange={(e) => setTodo(e.target.value)}
         />
-        <button type="submit" aria-label="Add Task">
-          <IoMdAdd />
-        </button>
+        <IconButton type="submit" aria-label="Add Task">
+          <AddTaskIcon />
+        </IconButton>
       </form>
-    </div>
+    </Container>
   );
 };

@@ -1,9 +1,14 @@
 import React, { useState } from "react";
-import { MdDeleteForever } from "react-icons/md";
-import { FaCheck } from "react-icons/fa6";
-import { MdEdit } from "react-icons/md";
-import { IoMdAdd } from "react-icons/io";
-import { RxCross2 } from "react-icons/rx";
+
+import IconButton from "@mui/material/IconButton";
+import DeleteIcon from "@mui/icons-material/Delete";
+import CheckIcon from "@mui/icons-material/Check";
+import ClearIcon from "@mui/icons-material/Clear";
+import EditIcon from "@mui/icons-material/Edit";
+import AddTaskIcon from "@mui/icons-material/AddTask";
+import Input from "@mui/material/Input";
+
+import Container from "@mui/material/Container";
 
 export const Todo = ({ todo, handleDelete, handleEdit }) => {
   const [isEditing, setIsEdting] = useState(false);
@@ -27,10 +32,14 @@ export const Todo = ({ todo, handleDelete, handleEdit }) => {
     setIsCompleted(false);
     handleEdit(todo._id, editedTask);
   };
+
   return (
-    <div className="task">
+    <Container className="task" fixed>
       {isEditing ? (
-        <input
+        <Input
+          className="input"
+          disableUnderline
+          fullWidth
           type="text"
           value={editedTask}
           onChange={(e) => setEditedTask(e.target.value)}
@@ -40,27 +49,23 @@ export const Todo = ({ todo, handleDelete, handleEdit }) => {
       )}
       <div className="taskBtn">
         {isEditing ? (
-          <button onClick={handleSave}>
-            <IoMdAdd style={{ fontSize: "20px" }} />
-          </button>
+          <IconButton onClick={handleSave}>
+            <AddTaskIcon />
+          </IconButton>
         ) : (
-          <button onClick={handleEditBtn}>
-            <MdEdit style={{ fontSize: "20px" }} />
-          </button>
+          <IconButton onClick={handleEditBtn}>
+            <EditIcon />
+          </IconButton>
         )}
 
-        <button onClick={toggleTaskStatus}>
-          {todo.completed ? (
-            <RxCross2 style={{ fontSize: "20px" }} />
-          ) : (
-            <FaCheck style={{ fontSize: "20px" }} />
-          )}
-        </button>
+        <IconButton onClick={toggleTaskStatus}>
+          {todo.completed ? <ClearIcon /> : <CheckIcon />}
+        </IconButton>
 
-        <button onClick={handleDelete}>
-          <MdDeleteForever style={{ fontSize: "20px" }} />
-        </button>
+        <IconButton aria-label="delete" onClick={handleDelete}>
+          <DeleteIcon />
+        </IconButton>
       </div>
-    </div>
+    </Container>
   );
 };
